@@ -1,0 +1,31 @@
+\documentclass{standalone}
+\usepackage[ascii]{inputenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\usetikzlibrary{patterns}
+
+\begin{document}
+
+\begin{tikzpicture}
+\draw (0,0) grid (4,4);
+\draw [pattern=north east lines] (1,1) rectangle (2,2);
+\draw [pattern=north east lines] (1,2) rectangle (2,3);
+\draw [pattern=north east lines] (2,3) rectangle (3,4);
+\node at (2.5,2.5)  {\includegraphics[width=0.6cm]{ghost}};
+\node at (1.5,0.5)  {\includegraphics[width=0.8cm]{player}};
+\node at (0.5,-0.2) {\tiny 1};
+\node at (1.5,-0.2) {\tiny 2};
+\node at (2.5,-0.2) {\tiny 3};
+\node at (3.5,-0.2) {\tiny 4};
+\node at (-0.2,0.5) {\tiny 1};
+\node at (-0.2,1.5) {\tiny 2};
+\node at (-0.2,2.5) {\tiny 3};
+\node at (-0.2,3.5) {\tiny 4};
+\node at (3.5,1.85) {\scriptsize EXIT};
+\node at (3.5,3.85) {\scriptsize EXIT};
+\node at (3.5,1.5)  {\scriptsize $-1$};
+\node at (3.5,3.5)  {\scriptsize $+1$};
+\end{tikzpicture}
+
+\end{document}
