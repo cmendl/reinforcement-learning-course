@@ -1,3 +1,5 @@
 # treat NumPy files as binary files
 *.npy binary
 *.npz binary
+
+*.pdf binary
