@@ -1,5 +1,11 @@
-Reinforcement Learning
-======================
+Reinforcement Learning Mini-course
+==================================
+
+
+Get started
+-----------
+1. Have a look at the slides (assumes some maths background)
+2. Start working on the exercises, see code/ReadMe.md
 
 
 About
@@ -17,7 +23,9 @@ References
   MIT Press (2018)
 - Stanford course [CS231n Convolutional Neural Networks for Visual Recognition](http://cs231n.github.io)
 - Andrej Karpathy  
-  Deep Reinforcement Learning: Pong from Pixels (2016)
+  [Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl) (2016)
+- David Silver  
+  [UCL RL course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
 - V. Mnih, K. Kavukcuoglu, D. Silver et al.  
   Human-level control through deep reinforcement learning  
   Nature 518, 529 (2015)

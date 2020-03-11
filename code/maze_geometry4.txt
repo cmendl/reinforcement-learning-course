@@ -1,0 +1,7 @@
+# S: start, X: inaccessible, E: exit with reward +1, F: exit with reward -1
+F...X..E
+..X.X...
+..F...X.
+..X.FX..
+..X.X..X
+S......F
