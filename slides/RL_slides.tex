@@ -18,7 +18,7 @@
 \newcommand{\PraesentationPositionKorrekturOben}{-1.8cm}
 \newcommand{\PraesentationBeispieleSchriftgroessen}{30 | 22 | 16 | 12}
 
-\usepackage[utf8]{inputenc}
+\usepackage[ascii]{inputenc}
 %\usepackage[T1]{fontenc} % Zeichensatzkodierung
 
 \usepackage{upquote}
@@ -47,6 +47,8 @@
 \usepackage{tabularx}
 
 \usepackage{multicol} % mehrspaltiger Text
+
+\usepackage{csquotes}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows, shapes, shapes.multipart, trees, positioning, backgrounds, fit, matrix, calc, patterns}
@@ -113,7 +115,7 @@
 \title{Reinforcement Learning Introduction}
 \author{\PersonTitel{} \PersonVorname{} \PersonNachname}
 \institute[]{\UniversitaetName \\ \FakultaetName \\ \LehrstuhlName}
-\date[\Datum]{March 10, 2020 \\ $ $ \\ {\color{TUMBlau} \href{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement_learning}{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement\_learning}}}
+\date[\Datum]{March 10, 2020 \\ $ $ \\ {\color{TUMBlau} \href{https://github.com/cmendl/reinforcement-learning-course}{https://github.com/cmendl/reinforcement-learning-course}}}
 
 
 % Allgemein:
@@ -121,7 +123,7 @@
 \newcommand{\AllgemeinErsteller}{eWorks GmbH}
 
 % Universität:
-\newcommand{\UniversitaetName}{Technische Universität München}
+\newcommand{\UniversitaetName}{Technische Universit\"at M\"unchen}
 \newcommand{\UniversitaetAbkuerzung}{TUM}
 \newcommand{\UniversitaetWebseite}{www.tum.de}
 \newcommand{\UniversitaetLogoBreite}{19mm}
@@ -459,6 +461,12 @@ $4 \times 3$ grid world with one player (hatched field $(2, 2)$ is inaccessible)
 $s_t$: current actor (player) position
 
 Possible actions: $\uparrow$, $\downarrow$, $\leftarrow$, $\rightarrow$: ``try to move in corresponding direction by one field''
+
+\vfill
+
+{\small
+S.~Russell and P.~Norvig. \emph{Artificial Intelligence: A Modern Approach (3rd ed).} (2009) \nocite{RussellNorvig}
+}
 \end{frame}
 
 
@@ -478,6 +486,12 @@ Formally:
 Analogously for $\downarrow$, $\leftarrow$, $\rightarrow$
 
 Reward: $+1$ for exit field $(4,3)$, $-1$ for exit field $(4,2)$, $-0.04$ for any other field (agent wants to reach exit as fast as possible)
+
+\vfill
+
+{\small
+S.~Russell and P.~Norvig. \emph{Artificial Intelligence: A Modern Approach (3rd ed).} (2009) \nocite{RussellNorvig}
+}
 \end{frame}
 
 
@@ -760,7 +774,7 @@ Goal: $\theta^* = \argmax_{\theta} J(\theta)$
 \frametitle{Policy gradient theorem}
 In the following: policy function specifies action probabilities: $\pi(a \vert s)$ (instead of $a = \pi(s)$)
 
-$\leadsto$ \textbf{policy gradient theorem}:
+$\leadsto$ \textbf{policy gradient theorem} (see supplementary slides for derivation):
 \[
 \nabla J(\theta) = \mathbb{E}\!\left[ \sum_{t=0}^{\infty} \left(\sum_{t'=t}^{\infty} \gamma^{t'} R(s_{t'})\right) \nabla_{\theta} \log \pi_{\theta}(a_t \vert s_t) \big\vert \pi_{\theta} \right]
 \]
@@ -935,7 +949,7 @@ D.~Silver, \dots, D.~Hassabis. \emph{Mastering the game of Go without human know
 \PraesentationMasterWeissBlau
 \begin{frame}
 \frametitle{Hands-on example: simplified Pac-Man}
-\href{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement_learning}{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement\_learning}
+\href{https://github.com/cmendl/reinforcement-learning-course}{https://github.com/cmendl/reinforcement-learning-course}, subfolder \emph{code/}
 \end{frame}
 \PraesentationMasterStandard
 
@@ -943,14 +957,16 @@ D.~Silver, \dots, D.~Hassabis. \emph{Mastering the game of Go without human know
 
 \begin{frame}
 \frametitle{Code structure}
-\href{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement_learning}{https://gitlab.lrz.de/tum-i05/chair-retreat/reinforcement\_learning}
+\href{https://github.com/cmendl/reinforcement-learning-course}{https://github.com/cmendl/reinforcement-learning-course}, subfolder \emph{code/}
 \begin{center}
 \includegraphics[width=0.3\textwidth]{mdp_ghost_environment/mdp_ghost_environment}
-\end{center}
+\end{center}\\
 \begin{itemize}
 \item Iterative ``dynamic programming'' algorithms in \emph{mdp.py}
 \item Environment: plain maze or maze with ghost in \emph{env.py}, \\
-geometry specified in text files (like ghost\_maze.txt)
+geometry specified in text files (like \emph{maze\_geometry.txt})
+\item Policy gradient algorithm in \emph{pg.py}, corresponding (simple two-layer) network defined in \emph{policy\_net.py}
+\item Demos as Jupyter notebooks
 \end{itemize}
 \end{frame}
 
@@ -960,6 +976,70 @@ geometry specified in text files (like ghost\_maze.txt)
 \frametitle{References}
 \printbibliography
 \end{frame}
+
+
+
+\PraesentationMasterWeissBlau
+\begin{frame}
+\frametitle{Supplementary slides}
+\end{frame}
+\PraesentationMasterStandard
+
+
+
+\begin{frame}
+\frametitle{Derivation of the policy gradient theorem}
+Here generalization to probabilistic policy function: $\pi(a \vert s)$ (instead of $a = \pi(s)$)
+
+Note that
+\[
+U^{\pi}(s) = \sum_{a \in \mathsf{A}} \pi(a \vert s) Q^{\pi}(s, a) \quad \forall s \in \mathsf{S}
+\]
+and
+\[
+Q^{\pi}(s, a) = R(s) + \gamma \sum_{s'} \mathbb{P}(s' \vert s, a) U^{\pi}(s') \quad \forall s \in \mathsf{S}, a \in \mathsf{A}.
+\]
+Therefore, combined with product rule:
+\[
+\begin{split}
+\nabla_{\theta} U^{\pi_{\theta}}(s)
+&= \sum_{a \in \mathsf{A}} \big( \nabla_{\theta} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a) + \pi_{\theta}(a \vert s) \nabla_{\theta} Q^{\pi_{\theta}}(s, a) \big) \\
+&= \sum_{a} \nabla_{\theta} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a) + \gamma \sum_{s', a} \pi_{\theta}(a \vert s) \mathbb{P}(s' \vert s, a) \nabla_{\theta} U^{\pi_{\theta}}(s') \\
+&= \sum_{a} \nabla_{\theta} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a) + \gamma \sum_{s'} \mathbb{P}_{\theta}(s' \vert s) \nabla_{\theta} U^{\pi_{\theta}}(s'),
+\end{split}
+\]
+with
+\[
+\mathbb{P}_{\theta}(s' \vert s) = \sum_{a} \pi_{\theta}(a \vert s) \mathbb{P}(s' \vert s, a)
+\]
+the transition probability $s \to s'$ following policy $\pi_{\theta}$.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Derivation of the policy gradient theorem, continued}
+Equation for $\nabla_{\theta} U^{\pi_{\theta}}$ yields recursive relation; repeated application $\leadsto$
+\[
+\nabla J(\theta) = \nabla_{\theta} U^{\pi_{\theta}}(\hat{s}_0) = \sum_{t=0}^{\infty} \sum_{s \in \mathsf{S}} \mathbb{P}_{\theta}(\hat{s}_0 \to s \text{ in } t \text{ steps}) \gamma^t \sum_{a} \nabla_{\theta} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a)
+\]
+Rewrite last term:
+\[
+\begin{split}
+\gamma^t \sum_{a} \nabla_{\theta} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a)
+&= \gamma^t \sum_{a} \pi_{\theta}(a \vert s) Q^{\pi_{\theta}}(s, a) \nabla_{\theta} \log \pi_{\theta}(a \vert s) \\
+&= \mathbb{E}_a\!\left[ \gamma^t Q^{\pi_{\theta}}(s, a) \nabla_{\theta} \log \pi_{\theta}(a \vert s) \big\vert \pi_{\theta} \right] \\
+&= \mathbb{E}\!\left[ \sum_{t'=t}^{\infty} \gamma^{t'} R(s_{t'}) \nabla_{\theta} \log \pi_{\theta}(a_t \vert s_t) \big\vert s_t = s, \pi_{\theta} \right],
+\end{split}
+\]
+with the expectation value referring to trajectories $(s_t, a_t, s_{t+1}, a_{t+1}, \dots)$ starting from time $t$.
+
+In summary:
+\[
+\nabla J(\theta) = \mathbb{E}\!\left[ \sum_{t=0}^{\infty} \left(\sum_{t'=t}^{\infty} \gamma^{t'} R(s_{t'})\right) \nabla_{\theta} \log \pi_{\theta}(a_t \vert s_t) \big\vert \pi_{\theta} \right]
+\]
+\end{frame}
+
 
 
 \end{document}
