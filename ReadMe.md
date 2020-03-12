@@ -1,6 +1,8 @@
 Reinforcement Learning Mini-course
 ==================================
 
+![image](env_ghost_maze.png)
+
 
 Get started
 -----------
