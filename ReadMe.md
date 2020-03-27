@@ -6,8 +6,8 @@ Reinforcement Learning Mini-course
 
 Get started
 -----------
-1. Have a look at the slides (assumes some maths background)
-2. Start working on the exercises, see code/ReadMe.md
+1. Have a look at the [slides](slides/RL_slides.pdf) (assumes some maths background)
+2. Start working on the [exercises](code/ReadMe.md)
 
 
 About
